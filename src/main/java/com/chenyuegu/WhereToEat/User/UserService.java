@@ -1,11 +1,19 @@
 package com.chenyuegu.WhereToEat.User;
 
 import com.chenyuegu.WhereToEat.User.DTO.User;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
-    public User getUserById(long id){
-        return new User(121l,"firstName", "lastName");
+    UserRepository userRepository;
+
+    UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
+    public Optional<User> getUserById(String id){
+        return userRepository.findById(new ObjectId(id));
     }
 }
