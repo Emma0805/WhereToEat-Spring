@@ -1,12 +1,11 @@
 package com.chenyuegu.WhereToEat.User;
 
 import com.chenyuegu.WhereToEat.User.DTO.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class UserController {
     private UserService userService;
@@ -19,5 +18,10 @@ public class UserController {
     @GetMapping("/user/{id}")
     public Optional<User> getUserById(@PathVariable String id){
         return userService.getUserById(id);
+    }
+
+    @PostMapping("/user/register")
+    public User registerNewUser(@RequestBody User user){
+        return userService.registerNewUser(user);
     }
 }
