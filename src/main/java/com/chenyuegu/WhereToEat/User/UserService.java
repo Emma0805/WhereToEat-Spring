@@ -13,7 +13,12 @@ public class UserService {
     UserService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
+
     public Optional<User> getUserById(String id){
         return userRepository.findById(new ObjectId(id));
+    }
+
+    public User registerNewUser(User user){
+        return userRepository.save(user);
     }
 }
