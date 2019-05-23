@@ -21,4 +21,11 @@ public class UserService {
     public User registerNewUser(User user){
         return userRepository.save(user);
     }
+
+    public User login(User user) {
+        User res = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
+        if(res == null) return null;
+        res.setPassword(null);
+        return res;
+    }
 }
