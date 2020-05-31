@@ -23,12 +23,12 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public User login(@RequestBody User user){
+    public User login(@RequestBody User user) throws Exception {
         return userService.login(user);
     }
 
     @PostMapping("/user/register")
-    public User registerNewUser(@RequestBody User user){
+    public User registerNewUser(@RequestBody User user) throws Exception {
         return userService.registerNewUser(user);
     }
 
