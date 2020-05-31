@@ -32,7 +32,7 @@ public class UserController {
         return userService.registerNewUser(user);
     }
 
-    @PutMapping("/user/add/place/{userId}")
+    @PostMapping("/user/add/place/{userId}")
     public List<Place> updatePlaces(@PathVariable String userId, @RequestBody List<Place> places){
         return userService.updatePlaces(userId, places);
     }
