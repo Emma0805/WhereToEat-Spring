@@ -1,6 +1,8 @@
 package com.chenyuegu.WhereToEat.User;
 
+import com.chenyuegu.WhereToEat.User.Auth.PasswordService;
 import com.chenyuegu.WhereToEat.User.DTO.Place;
+import com.chenyuegu.WhereToEat.User.Auth.DTO.Token;
 import com.chenyuegu.WhereToEat.User.DTO.User;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,39 +22,25 @@ public class UserService {
     PasswordService passwordService;
 
     @Autowired
-    UserService(UserRepository userRepository, MongoTemplate mongoTemplate, PasswordService passwordService){
+    UserService(UserRepository userRepository, MongoTemplate mongoTemplate, PasswordService passwordService) {
         this.userRepository = userRepository;
         this.mongoTemplate = mongoTemplate;
         this.passwordService = passwordService;
     }
 
-    public Optional<User> getUserById(String id){
+    public Optional<User> getUserById(String id) {
         return userRepository.findById(new ObjectId(id));
     }
 
-    public User registerNewUser(User user) throws Exception {
-        User res = userRepository.findByEmail(user.getEmail());
-        if(res != null){
-            throw new Exception("Email already exist.");
-        }
-        String password = passwordService.generateStorngPasswordHash(user.getPassword());
-        user.setPassword(password);
-        userRepository.save(user);
-        user.setPassword(null);
-        return user;
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
-    public User login(User user) throws Exception {
-        User res = userRepository.findByEmail(user.getEmail());
-        if(res == null) return null;
-        if(passwordService.validatePassword(user.getPassword(), res.getPassword())){
-            res.setPassword(null);
-            return res;
-        }
-        return null;
+    public User save(User user){
+        return userRepository.save(user);
     }
 
-    public List<Place> updatePlaces(String userId, List<Place> places){
+    public List<Place> updatePlaces(String userId, List<Place> places) {
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(userId));
         Update update = new Update();
@@ -60,4 +48,5 @@ public class UserService {
         mongoTemplate.updateFirst(query, update, User.class);
         return places;
     }
+
 }
