@@ -23,8 +23,13 @@ public class AuthController {
         return authService.login(user);
     }
 
-    @PostMapping("/user/register")
+    @PostMapping("/register")
     public Token registerNewUser(@RequestBody User user) throws Exception {
         return authService.registerNewUser(user);
+    }
+
+    @PostMapping("/refresh/token")
+    public Token refreshToken(@RequestBody Token token) throws Exception {
+        return authService.refreshToken(token);
     }
 }

@@ -49,4 +49,13 @@ public class AuthService {
         userService.save(user);
         return login(user);
     }
+
+    public Token refreshToken(Token token) throws Exception {
+        if(jwtTokenService.varifyAuthToken(token.getAuthToken()) && jwtTokenService.varifyRefreshToken(token.getRefreshToken())){
+            token.setAuthToken(jwtTokenService.generateAuthToken());
+        }else{
+            throw new Exception("Unauthorized");
+        }
+        return token;
+    }
 }
