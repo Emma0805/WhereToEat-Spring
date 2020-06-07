@@ -37,6 +37,8 @@ public class AuthService {
         String password = passwordService.generateStorngPasswordHash(user.getPassword());
         user.setPassword(password);
         userService.save(user);
+
+        //TODO
         return login(user);
     }
 

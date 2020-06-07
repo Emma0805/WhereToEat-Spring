@@ -4,7 +4,6 @@ import com.chenyuegu.WhereToEat.Auth.DTO.Token;
 import com.chenyuegu.WhereToEat.User.DTO.User;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class AuthController {
     private AuthService authService;
