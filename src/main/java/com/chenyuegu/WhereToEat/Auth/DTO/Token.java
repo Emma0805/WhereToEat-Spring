@@ -1,4 +1,4 @@
-package com.chenyuegu.WhereToEat.User.Auth.DTO;
+package com.chenyuegu.WhereToEat.Auth.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

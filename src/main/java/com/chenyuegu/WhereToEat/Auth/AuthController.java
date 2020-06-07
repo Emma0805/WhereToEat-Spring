@@ -1,13 +1,8 @@
-package com.chenyuegu.WhereToEat.User.Auth;
+package com.chenyuegu.WhereToEat.Auth;
 
-import com.chenyuegu.WhereToEat.User.Auth.DTO.Token;
-import com.chenyuegu.WhereToEat.User.DTO.Place;
+import com.chenyuegu.WhereToEat.Auth.DTO.Token;
 import com.chenyuegu.WhereToEat.User.DTO.User;
-import com.chenyuegu.WhereToEat.User.UserService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController

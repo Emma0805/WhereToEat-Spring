@@ -1,4 +1,4 @@
-package com.chenyuegu.WhereToEat.User.Auth;
+package com.chenyuegu.WhereToEat.Auth;
 
 import org.springframework.stereotype.Service;
 

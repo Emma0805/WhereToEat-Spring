@@ -1,8 +1,7 @@
 package com.chenyuegu.WhereToEat.User;
 
-import com.chenyuegu.WhereToEat.User.Auth.PasswordService;
+import com.chenyuegu.WhereToEat.Auth.PasswordService;
 import com.chenyuegu.WhereToEat.User.DTO.Place;
-import com.chenyuegu.WhereToEat.User.Auth.DTO.Token;
 import com.chenyuegu.WhereToEat.User.DTO.User;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,14 @@ public class UserService {
         this.passwordService = passwordService;
     }
 
-    public Optional<User> getUserById(String id) {
-        return userRepository.findById(new ObjectId(id));
+    public User getUserById(String id) {
+        User user = null;
+        Optional<User> userRes = userRepository.findById(new ObjectId(id));
+        if(userRes.isPresent()){
+            user = userRes.get();
+            user.setPassword(null);
+        }
+        return user;
     }
 
     public User getUserByEmail(String email) {
