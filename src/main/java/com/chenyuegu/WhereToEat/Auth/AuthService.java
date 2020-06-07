@@ -38,8 +38,7 @@ public class AuthService {
         user.setPassword(password);
         userService.save(user);
 
-        //TODO
-        return login(user);
+        return new Token(jwtTokenService.generateAuthToken(), jwtTokenService.generateRefreshToken());
     }
 
     public Token refreshToken(Token token) throws Exception {
