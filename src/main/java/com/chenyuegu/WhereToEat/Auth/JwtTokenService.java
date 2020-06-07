@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -30,8 +31,8 @@ public class JwtTokenService implements Serializable {
             String token = JWT.create()
                     .withIssuer("whereToEatSpring")
                     .withAudience("whereToEatAngular")
-                    .withIssuedAt(Date.from(LocalDateTime.now().toInstant(ZoneOffset.UTC)))
-                    .withExpiresAt(Date.from(LocalDateTime.now().plusMinutes(10).toInstant(ZoneOffset.UTC)))
+                    .withIssuedAt(Date.from(Instant.now()))
+                    .withExpiresAt(Date.from(Instant.now().plusSeconds(10 * 60)))
                     .sign(algorithm);
             return token;
         } catch (JWTCreationException exception) {

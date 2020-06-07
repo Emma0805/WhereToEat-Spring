@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
     private UserService userService;
 
@@ -14,12 +15,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public User getUserById(@PathVariable String id) {
         return userService.getUserById(id);
     }
 
-    @PostMapping("/user/add/place/{userId}")
+    @PostMapping("/add/place/{userId}")
     public List<Place> updatePlaces(@PathVariable String userId, @RequestBody List<Place> places) {
         return userService.updatePlaces(userId, places);
     }
