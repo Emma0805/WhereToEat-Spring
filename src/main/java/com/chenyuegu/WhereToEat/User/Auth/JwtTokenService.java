@@ -61,7 +61,7 @@ public class JwtTokenService implements Serializable {
         return null;
     }
 
-    public boolean varifyAuthToken(String token) {
+    public boolean varifyAuthTokenIgnoreExpiredTime(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(authSecret);
             JWTVerifier verifier = JWT.require(algorithm)

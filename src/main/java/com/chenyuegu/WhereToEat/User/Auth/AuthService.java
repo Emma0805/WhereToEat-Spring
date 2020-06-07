@@ -51,7 +51,7 @@ public class AuthService {
     }
 
     public Token refreshToken(Token token) throws Exception {
-        if(jwtTokenService.varifyAuthToken(token.getAuthToken()) && jwtTokenService.varifyRefreshToken(token.getRefreshToken())){
+        if(jwtTokenService.varifyAuthTokenIgnoreExpiredTime(token.getAuthToken()) && jwtTokenService.varifyRefreshToken(token.getRefreshToken())){
             token.setAuthToken(jwtTokenService.generateAuthToken());
         }else{
             throw new Exception("Unauthorized");
