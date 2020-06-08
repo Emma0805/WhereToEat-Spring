@@ -24,7 +24,7 @@ public class AuthService {
         User res = userService.getUserByEmail(user.getEmail());
         if (res == null) return null;
         if (passwordService.validatePassword(user.getPassword(), res.getPassword())) {
-            return new Token(jwtTokenService.generateAuthToken(), jwtTokenService.generateRefreshToken());
+            return new Token(jwtTokenService.generateAuthToken(res.getId()), jwtTokenService.generateRefreshToken(res.getId()));
         }
         return null;
     }
@@ -38,13 +38,18 @@ public class AuthService {
         user.setPassword(password);
         userService.save(user);
 
-        return new Token(jwtTokenService.generateAuthToken(), jwtTokenService.generateRefreshToken());
+        return new Token(jwtTokenService.generateAuthToken(res.getId()), jwtTokenService.generateRefreshToken(res.getId()));
     }
 
     public Token refreshToken(Token token) throws Exception {
-        if(jwtTokenService.varifyAuthTokenIgnoreExpiredTime(token.getAuthToken()) && jwtTokenService.varifyRefreshToken(token.getRefreshToken())){
-            token.setAuthToken(jwtTokenService.generateAuthToken());
-        }else{
+        if (jwtTokenService.varifyAuthTokenIgnoreExpiredTime(token.getAuthToken()) != null
+                && jwtTokenService.varifyRefreshToken(token.getRefreshToken()) != null
+                && jwtTokenService.varifyRefreshToken(token.getRefreshToken())
+                .equals(jwtTokenService.varifyAuthTokenIgnoreExpiredTime(token.getAuthToken()))
+        ) {
+            String userId = jwtTokenService.varifyRefreshToken(token.getRefreshToken());
+            token.setAuthToken(jwtTokenService.generateAuthToken(userId));
+        } else {
             throw new Exception("Unauthorized");
         }
         return token;
