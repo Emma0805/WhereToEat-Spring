@@ -24,7 +24,7 @@ public class AuthService {
         User res = userService.getUserByEmail(user.getEmail());
         if (res == null) return null;
         if (passwordService.validatePassword(user.getPassword(), res.getPassword())) {
-            return new Token(jwtTokenService.generateAuthToken(res.getId()), jwtTokenService.generateRefreshToken(res.getId()));
+            return new Token(jwtTokenService.generateAuthToken(res.getId()), jwtTokenService.generateRefreshToken(res.getId()), res.getId());
         }
         return null;
     }
@@ -38,7 +38,7 @@ public class AuthService {
         user.setPassword(password);
         userService.save(user);
 
-        return new Token(jwtTokenService.generateAuthToken(res.getId()), jwtTokenService.generateRefreshToken(res.getId()));
+        return new Token(jwtTokenService.generateAuthToken(res.getId()), jwtTokenService.generateRefreshToken(res.getId()), res.getId());
     }
 
     public Token refreshToken(Token token) throws Exception {
